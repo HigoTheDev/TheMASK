@@ -1,0 +1,281 @@
+fileFormatVersion: 2
+guid: 3a5bcdbbaaf29794f88442c1d84d2d4c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1644731644862995042
+    second: human_faceR_0
+  - first:
+      213: -264794699784459786
+    second: human_faceR_1
+  - first:
+      213: -1600439710640200471
+    second: human_faceR_2
+  - first:
+      213: -8938618141675491009
+    second: human_faceR_3
+  - first:
+      213: -6321859677639703626
+    second: human_faceR_4
+  - first:
+      213: 2755158487920596607
+    second: human_faceR_5
+  - first:
+      213: -1868192853328690611
+    second: human_faceR_6
+  - first:
+      213: -4096953272374923457
+    second: human_faceR_7
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: human_faceR_0
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 139
+        width: 525
+        height: 488
+      alignment: 9
+      pivot: {x: 0.5163681, y: 0.092789225}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26a17e287b243d610800000000000000
+      internalID: 1644731644862995042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: human_faceR_2
+      rect:
+        serializedVersion: 2
+        x: 708
+        y: 408
+        width: 283
+        height: 260
+      alignment: 9
+      pivot: {x: 0.5227743, y: 0.14470215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e4acda00981ac9e0800000000000000
+      internalID: -1600439710640200471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: human_faceR_4
+      rect:
+        serializedVersion: 2
+        x: 1110
+        y: 400
+        width: 85
+        height: 174
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b38b6a2e1e3448a0800000000000000
+      internalID: -6321859677639703626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: human_faceR_5
+      rect:
+        serializedVersion: 2
+        x: 1346
+        y: 401
+        width: 94
+        height: 173
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f76d86c1c0a4c3620800000000000000
+      internalID: 2755158487920596607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: human_faceR_6
+      rect:
+        serializedVersion: 2
+        x: 728
+        y: 107
+        width: 92
+        height: 199
+      alignment: 9
+      pivot: {x: 0.74519014, y: 0.9318213}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d428b6d7f78d216e0800000000000000
+      internalID: -1868192853328690611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: human_faceR_7
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 107
+        width: 99
+        height: 199
+      alignment: 9
+      pivot: {x: 0.16365005, y: 0.9426171}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3fe7b294b2b427c0800000000000000
+      internalID: -4096953272374923457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: e968c1010329a204aac47307ac313c54
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      human_faceR_0: 1644731644862995042
+      human_faceR_1: -264794699784459786
+      human_faceR_2: -1600439710640200471
+      human_faceR_3: -8938618141675491009
+      human_faceR_4: -6321859677639703626
+      human_faceR_5: 2755158487920596607
+      human_faceR_6: -1868192853328690611
+      human_faceR_7: -4096953272374923457
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
