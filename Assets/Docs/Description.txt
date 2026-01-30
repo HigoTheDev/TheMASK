@@ -1,0 +1,102 @@
+MASK – Gameplay Design Document
+1. Tổng quan
+MASK là một mini 2D platformer được phát triển trong 24 giờ cho game jam. Trò chơi xoay quanh một cơ chế cốt lõi duy nhất: đeo và tháo mặt nạ để thay đổi thế giới. Người chơi không thay đổi bản thân, mà thay đổi cách thế giới phản hồi lại họ.
+Thể loại: 2D Platformer / Puzzle
+Thời lượng chơi: 5–10 phút
+Nền tảng: PC
+Engine: Unity 6
+Phong cách: Tối giản, tập trung gameplay
+
+2. Ý tưởng cốt lõi 
+“Khi đeo mặt nạ, thế giới trở thành một phiên bản khác.”
+Người chơi có thể chuyển đổi giữa hai trạng thái thế giới:
+Normal World (Không đeo mặt nạ)
+Masked World (Đeo mặt nạ)
+Mỗi thế giới có các vật thể, địa hình và quy tắc tồn tại riêng. Việc chuyển đổi giữa hai thế giới là chìa khóa để vượt qua các màn chơi. (có thể tối giản hoá cho kịp thời gian).
+
+3. Core Gameplay Loop
+Người chơi quan sát màn chơi
+Di chuyển và nhảy trong thế giới hiện tại
+Đeo hoặc tháo mặt nạ để thay đổi thế giới
+Tận dụng sự khác biệt giữa hai thế giới để vượt chướng ngại
+Chạm vào Goal để hoàn thành màn
+Chuyển sang màn tiếp theo
+Loop này lặp lại với độ khó tăng dần qua từng màn.
+
+
+
+4. Điều khiển (Controls)
+A / D hoặc ← / →: Di chuyển trái – phải
+Space: Nhảy
+Shift hoặc E: Đeo / Tháo mặt nạ
+R: Restart màn hiện tại
+Điều khiển được thiết kế tối giản để người chơi tập trung hoàn toàn vào cơ chế mặt nạ.
+
+5. Cơ chế Mặt Nạ (Mask Mechanic)
+5.1 Trạng thái thế giới
+Normal World:
+Một số nền tảng và vật thể tồn tại
+Một số bẫy bị vô hiệu
+Masked World:
+Các nền tảng khác xuất hiện
+Một số lối đi mới được mở ra
+Có thể vô hiệu hoặc kích hoạt các bẫy khác
+5.2 Chuyển đổi tức thì
+Người chơi có thể đổi thế giới bất cứ lúc nào, kể cả khi đang ở giữa không trung
+Việc chuyển đổi không làm reset vị trí nhân vật
+Điều này tạo ra các tình huống puzzle và kỹ năng (timing) thú vị
+
+6. Thiết kế Level
+6.1 Nguyên tắc thiết kế
+Mỗi màn = 1 màn hình (không hoặc rất ít scrolling)
+Mỗi màn chỉ giới thiệu 1 ý tưởng chính
+Không kết hợp quá nhiều mechanic trong cùng một màn
+6.2 Tiến trình độ khó (Difficulty Curve)
+Màn 1: Giới thiệu di chuyển và toggle mask
+Màn 2: Nền tảng chỉ tồn tại ở một thế giới
+Màn 3: Toggle mask khi đang rơi
+Màn 4: Chuỗi toggle liên tục
+Màn 5: Bẫy yêu cầu timing chính xác
+
+7. Thất bại và Hình phạt
+Khi chạm vào bẫy hoặc rơi khỏi màn:
+Nhân vật chết ngay lập tức
+Màn chơi được restart ngay
+Không có hệ thống mạng sống hay checkpoint để giữ nhịp chơi nhanh và thử lại liên tục.
+
+8. Feedback & Cảm giác chơi (Game Feel)
+8.1 Khi đổi mask
+Flash màn hình ngắn
+Âm thanh "click" rõ ràng
+Thay đổi màu sắc / filter nền
+8.2 Khi chết
+Dừng hình 0.1–0.2 giây
+Màn hình rung nhẹ
+Restart nhanh
+Mục tiêu là để người chơi hiểu ngay lập tức chuyện gì vừa xảy ra.
+
+9. Kết thúc (Ending)
+Sau khi hoàn thành màn cuối, người chơi được dẫn tới một màn hình kết thúc với thông điệp:
+“You didn’t change the world.
+You changed how you see it.”
+Ending ngắn, mang tính biểu tượng, nhấn mạnh chủ đề MASK.
+
+10. Scope & Giới hạn (Game Jam Constraints)
+Có:
+Một cơ chế duy nhất
+Ít asset
+Level ngắn, rõ ràng
+Không có:
+Cốt truyện dài
+AI phức tạp
+Nâng cấp nhân vật
+Hệ thống lưu game
+
+11. Trải nghiệm mong muốn
+Người chơi hiểu gameplay trong 30 giây đầu
+Thử – chết – thử lại nhanh
+Có cảm giác "À thì ra là vậy" khi giải được puzzle
+Rời game với một thông điệp đơn giản nhưng rõ ràng về chủ đề MASK
+
+End of Document
+
