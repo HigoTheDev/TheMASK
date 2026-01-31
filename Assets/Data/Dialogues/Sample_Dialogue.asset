@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 891ccff4cf042544b9a52e911d6b8005, type: 3}
+  m_Name: Sample_Dialogue
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  npcName: NPC
+  npcAvatar: {fileID: 0}
+  dialogueLines:
+  - "H\xF4 H\xF4 H\xD4"
+  - "\xC9t o \xE9t"
+  - "B\u1EE7 b\u1EE7 lmao"
+  canRepeat: 1
+  autoProgressDelay: 0
