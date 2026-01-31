@@ -21,6 +21,9 @@ public class PlayerController : MonoBehaviour
     // Mask state
     private bool isMaskWorn = false;
 
+    // Store initial scale to preserve size when flipping
+    private Vector3 initialScale;
+
     // Animation parameter hashes
     private int isRunningHash;
     private int isJumpingHash;
@@ -29,6 +32,9 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+
+        // Store the initial scale (this preserves your inspector settings)
+        initialScale = transform.localScale;
 
         // Cache parameter hashes
         isRunningHash = Animator.StringToHash("isRunning");
@@ -62,11 +68,11 @@ public class PlayerController : MonoBehaviour
         // Apply horizontal movement
         rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
 
-        // Flip sprite based on direction
+        // Flip sprite based on direction (preserve Y and Z scale)
         if (moveInput > 0)
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = new Vector3(Mathf.Abs(initialScale.x), initialScale.y, initialScale.z);
         else if (moveInput < 0)
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(-Mathf.Abs(initialScale.x), initialScale.y, initialScale.z);
     }
 
     private void HandleJump()
@@ -104,13 +110,7 @@ public class PlayerController : MonoBehaviour
             string status = isMaskWorn ? "worn" : "removed";
             Debug.Log($"Mask {status}: {currentMask.maskName}");
         }
-        else
-        {
-            Debug.Log($"Mask {(isMaskWorn ? "worn" : "removed")} (no mask controller)");
-        }
-
-        // TODO: Trigger world state change event here
-        // This is where you'll later integrate with WorldStateManager
+        
     }
 
     private void UpdateAnimations()
