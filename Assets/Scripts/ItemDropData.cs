@@ -19,6 +19,32 @@ public class ItemDropData : ScriptableObject
     [Tooltip("Sprite/Icon của item")]
     public Sprite itemIcon;
 
+    [Header("Story Information")]
+    [Tooltip("Tiêu đề câu chuyện/lore của item")]
+    public string storyTitle = "";
+    
+    [Tooltip("Mô tả ngắn về câu chuyện hoặc nguồn gốc item")]
+    [TextArea(2, 5)]
+    public string storyDescription = "";
+    
+    [Tooltip("Full lore text - câu chuyện đầy đủ về item (optional)")]
+    [TextArea(5, 10)]
+    public string fullLore = "";
+    
+    [Tooltip("Icon chi tiết hơn để hiển thị trong Item Info UI (optional, nếu null dùng itemIcon)")]
+    public Sprite detailedIcon;
+
+    [Header("Pickup Settings")]
+    [Tooltip("Item này có thể được nhặt lên không?")]
+    public bool canBePickedUp = true;
+    
+    [Tooltip("Vị trí offset khi player cầm item (Y thường > 0 để item ở trên đầu)")]
+    public Vector3 holdOffset = new Vector3(0, 1.5f, 0);
+    
+    [Tooltip("Tốc độ follow player khi đang cầm (1-20, cao = nhanh hơn)")]
+    [Range(1f, 20f)]
+    public float followSpeed = 10f;
+
     [Header("Drop Settings")]
     [Tooltip("Prefab của item sẽ spawn vào scene (có thể để null nếu chỉ cần spawn sprite)")]
     public GameObject itemPrefab;

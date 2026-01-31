@@ -160,15 +160,51 @@ public class ItemDropSystem : MonoBehaviour
 
 /// <summary>
 /// Component attached to dropped items to store their data
-/// Can be extended for pickup functionality
+/// Supports pickup detection and visual feedback
 /// </summary>
+[RequireComponent(typeof(Collider2D))]
 public class DroppedItem : MonoBehaviour
 {
     private ItemDropData itemData;
+    private bool playerNearby = false;
+    private SpriteRenderer spriteRenderer;
+    private Color originalColor;
+    
+    [Header("Pickup Detection")]
+    [SerializeField] private string playerTag = "Player";
+    [SerializeField] private LayerMask playerLayer;
+    
+    [Header("Visual Feedback")]
+    [SerializeField] private bool enableHighlight = true;
+    [SerializeField] private Color highlightColor = new Color(1f, 1f, 0.5f, 1f); // Slight yellow tint
+    [SerializeField] private float highlightIntensity = 1.2f;
+
+    private void Awake()
+    {
+        // Get sprite renderer for highlight
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            originalColor = spriteRenderer.color;
+        }
+
+        // Ensure collider is trigger
+        Collider2D col = GetComponent<Collider2D>();
+        if (col != null)
+        {
+            col.isTrigger = true;
+        }
+    }
 
     public void Initialize(ItemDropData data)
     {
         itemData = data;
+        
+        // Store original color after initialization in case sprite was set
+        if (spriteRenderer != null)
+        {
+            originalColor = spriteRenderer.color;
+        }
     }
 
     public ItemDropData GetItemData()
@@ -176,13 +212,132 @@ public class DroppedItem : MonoBehaviour
         return itemData;
     }
 
-    // Future: Add pickup functionality
-    // private void OnTriggerEnter2D(Collider2D collision)
-    // {
-    //     if (collision.CompareTag("Player"))
-    //     {
-    //         // Handle pickup
-    //         Destroy(gameObject);
-    //     }
-    // }
+    public bool IsPlayerNearby()
+    {
+        return playerNearby;
+    }
+
+    public bool CanBePickedUp()
+    {
+        return itemData != null && itemData.canBePickedUp;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (IsPlayer(collision))
+        {
+            playerNearby = true;
+            
+            // Visual highlight
+            if (enableHighlight && CanBePickedUp())
+            {
+                ApplyHighlight(true);
+            }
+
+            Debug.Log($"DroppedItem: Player near {itemData?.itemName}");
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (IsPlayer(collision))
+        {
+            playerNearby = false;
+            
+            // Remove highlight
+            if (enableHighlight)
+            {
+                ApplyHighlight(false);
+            }
+
+            Debug.Log($"DroppedItem: Player left {itemData?.itemName}");
+        }
+    }
+
+    /// <summary>
+    /// Check if collider is the player
+    /// </summary>
+    private bool IsPlayer(Collider2D collision)
+    {
+        // Check by layer
+        if (playerLayer != 0 && ((1 << collision.gameObject.layer) & playerLayer) != 0)
+        {
+            return true;
+        }
+
+        // Fallback: check by tag
+        if (!string.IsNullOrEmpty(playerTag) && collision.CompareTag(playerTag))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// Apply visual highlight when player nearby
+    /// </summary>
+    private void ApplyHighlight(bool highlight)
+    {
+        if (spriteRenderer == null)
+            return;
+
+        if (highlight)
+        {
+            spriteRenderer.color = originalColor * highlightColor * highlightIntensity;
+        }
+        else
+        {
+            spriteRenderer.color = originalColor;
+        }
+    }
+
+    /// <summary>
+    /// Called when item is picked up - disable physics and visuals
+    /// </summary>
+    public void OnPickedUp()
+    {
+        // Disable physics
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.simulated = false;
+        }
+
+        // Disable trigger to prevent re-pickup
+        Collider2D col = GetComponent<Collider2D>();
+        if (col != null)
+        {
+            col.enabled = false;
+        }
+
+        // Reset color
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = originalColor;
+        }
+
+        playerNearby = false;
+    }
+
+    /// <summary>
+    /// Called when item is dropped - re-enable physics and collisions
+    /// </summary>
+    public void OnDropped()
+    {
+        // Re-enable physics
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.simulated = true;
+        }
+
+        // Re-enable trigger
+        Collider2D col = GetComponent<Collider2D>();
+        if (col != null)
+        {
+            col.enabled = true;
+        }
+    }
 }
+
