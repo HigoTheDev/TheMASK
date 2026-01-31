@@ -586,6 +586,17 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &410992183 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3014506122306967384, guid: 1dfed47da2c42bd40880cdd8c2f31997, type: 3}
+  m_PrefabInstance: {fileID: 547896555124042950}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72f329c89428c63478186bd3a520a2d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MaskUIController
 --- !u!1 &420102337
 GameObject:
   m_ObjectHideFlags: 0
@@ -1944,6 +1955,10 @@ PrefabInstance:
       propertyPath: maskController
       value: 
       objectReference: {fileID: 1656994733}
+    - target: {fileID: 7607113391310287953, guid: 36edcaf90d57efa488adbe90e7f30826, type: 3}
+      propertyPath: maskUIController
+      value: 
+      objectReference: {fileID: 410992183}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

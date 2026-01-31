@@ -79,7 +79,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 5
   m_MaskInteraction: 0
   m_Sprite: {fileID: -1454315009380545610, guid: 8e450f4136b55714f8c70568c7535eee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -170,7 +170,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: -4096953272374923457, guid: 3a5bcdbbaaf29794f88442c1d84d2d4c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -261,7 +261,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_MaskInteraction: 0
   m_Sprite: {fileID: -1868192853328690611, guid: 3a5bcdbbaaf29794f88442c1d84d2d4c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -352,7 +352,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_MaskInteraction: 0
   m_Sprite: {fileID: -8769378696778457457, guid: 6116ef21f8ae0ea47858831a71356cf7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -443,7 +443,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 8798465613402902759, guid: 6116ef21f8ae0ea47858831a71356cf7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -557,6 +557,7 @@ MonoBehaviour:
   moveSpeed: 5
   jumpForce: 10
   maskController: {fileID: 0}
+  maskUIController: {fileID: 0}
   maskVisual: {fileID: 59553486354852084}
 --- !u!61 &4809764821584059257
 BoxCollider2D:
@@ -719,7 +720,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_MaskInteraction: 0
   m_Sprite: {fileID: -1600439710640200471, guid: 3a5bcdbbaaf29794f88442c1d84d2d4c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -810,7 +811,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1644731644862995042, guid: 3a5bcdbbaaf29794f88442c1d84d2d4c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
