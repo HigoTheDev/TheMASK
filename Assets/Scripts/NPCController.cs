@@ -9,11 +9,21 @@ using System.Collections.Generic;
 public class NPCController : MonoBehaviour
 {
     [Header("NPC Data")]
-    [Tooltip("Dialogue data cho NPC này")]
+    [Tooltip("Dialogue data cho NPC này (legacy - dùng nếu không có MaskDialogueSet)")]
     [SerializeField] private DialogueData dialogueData;
+    
+    [Tooltip("Mask-dependent dialogue set (ưu tiên hơn dialogueData đơn lẻ)")]
+    [SerializeField] private MaskDialogueSet maskDialogueSet;
     
     [Tooltip("Danh sách items có thể drop")]
     [SerializeField] private List<ItemDropData> itemDrops = new List<ItemDropData>();
+
+    [Header("Mask Requirement")]
+    [Tooltip("NPC này yêu cầu player đeo mask?")]
+    [SerializeField] private bool requiresMask = false;
+    
+    [Tooltip("Unique ID cho NPC (để track choice)")]
+    [SerializeField] private string npcID = "NPC_1";
 
     [Header("Interaction Settings")]
     [Tooltip("Layer của Player (để phát hiện player)")]
@@ -28,6 +38,9 @@ public class NPCController : MonoBehaviour
     [Header("References")]
     [Tooltip("Interaction prompt UI (sẽ tự tìm nếu không gán)")]
     [SerializeField] private InteractionPrompt interactionPrompt;
+    
+    [Tooltip("Combat component (required if requiresMask = true)")]
+    [SerializeField] private NPCCombat npcCombat;
 
     [Header("Item Drop Settings")]
     [Tooltip("Drop items ngay sau khi dialogue kết thúc?")]
@@ -37,6 +50,7 @@ public class NPCController : MonoBehaviour
     private bool playerInRange = false;
     private bool hasInteracted = false;
     private Transform playerTransform;
+    private PlayerController playerController;
 
     private void Awake()
     {
@@ -51,6 +65,12 @@ public class NPCController : MonoBehaviour
         if (interactionPrompt == null)
         {
             interactionPrompt = FindFirstObjectByType<InteractionPrompt>();
+        }
+
+        // Find combat component if not assigned
+        if (npcCombat == null)
+        {
+            npcCombat = GetComponent<NPCCombat>();
         }
     }
 
@@ -71,12 +91,91 @@ public class NPCController : MonoBehaviour
             if (DialogueSystem.Instance != null && DialogueSystem.Instance.IsDialogueActive())
                 return;
 
-            StartInteraction();
+            // Check mask requirement
+            if (requiresMask)
+            {
+                CheckPlayerMaskAndAct();
+            }
+            else
+            {
+                StartInteraction();
+            }
         }
     }
 
     /// <summary>
-    /// Start interaction with NPC
+    /// Check player mask and start interaction or combat
+    /// </summary>
+    private void CheckPlayerMaskAndAct()
+    {
+        if (playerController == null)
+        {
+            Debug.LogWarning("NPCController: Player controller not found!");
+            return;
+        }
+
+        MaskType currentMask = playerController.GetCurrentMaskType();
+
+        if (currentMask == MaskType.NONE)
+        {
+            // Player has no mask, enter combat
+            Debug.Log($"{gameObject.name}: Player has no mask! Entering combat mode!");
+            EnterCombatMode();
+        }
+        else
+        {
+            // Player has mask, start dialogue with appropriate variant
+            Debug.Log($"{gameObject.name}: Player wearing {currentMask} mask");
+            StartMaskDependentDialogue(currentMask);
+        }
+    }
+
+    /// <summary>
+    /// Start dialogue based on equipped mask type
+    /// </summary>
+    private void StartMaskDependentDialogue(MaskType maskType)
+    {
+        DialogueData selectedDialogue = null;
+
+        // Use MaskDialogueSet if available
+        if (maskDialogueSet != null && maskDialogueSet.IsValid())
+        {
+            selectedDialogue = maskDialogueSet.GetDialogueForMask(maskType);
+        }
+        else if (dialogueData != null)
+        {
+            // Fallback to single dialogue
+            selectedDialogue = dialogueData;
+        }
+
+        if (selectedDialogue != null && selectedDialogue.IsValid())
+        {
+            if (DialogueSystem.Instance != null)
+            {
+                DialogueSystem.Instance.StartDialogue(selectedDialogue, this);
+                hasInteracted = true;
+
+                // Record choice in tracker
+                if (MaskChoiceTracker.Instance != null)
+                {
+                    MaskChoiceTracker.Instance.RecordChoice(npcID, maskType);
+                }
+
+                // Hide interaction prompt during dialogue
+                if (interactionPrompt != null)
+                {
+                    interactionPrompt.Hide();
+                }
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"NPCController: No valid dialogue for mask {maskType}!");
+        }
+    }
+
+    /// <summary>
+    /// Start interaction with NPC (legacy method for non-mask NPCs)
     /// </summary>
     private void StartInteraction()
     {
@@ -110,6 +209,27 @@ public class NPCController : MonoBehaviour
         {
             Debug.LogWarning("NPCController: No valid dialogue data assigned!");
         }
+    }
+
+    /// <summary>
+    /// Enter combat mode (attack player)
+    /// </summary>
+    private void EnterCombatMode()
+    {
+        if (npcCombat == null)
+        {
+            Debug.LogWarning($"{gameObject.name}: NPCCombat component not found!");
+            return;
+        }
+
+        if (playerController == null)
+        {
+            Debug.LogWarning($"{gameObject.name}: PlayerController not found!");
+            return;
+        }
+
+        npcCombat.EnterCombatMode(playerController);
+        HideInteractionPrompt();
     }
 
     /// <summary>
@@ -178,6 +298,9 @@ public class NPCController : MonoBehaviour
             playerInRange = true;
             playerTransform = collision.transform;
             
+            // Get PlayerController component
+            playerController = collision.GetComponent<PlayerController>();
+            
             // Show prompt only if can interact
             if (!hasInteracted || (dialogueData != null && dialogueData.canRepeat))
             {
@@ -222,8 +345,11 @@ public class NPCController : MonoBehaviour
 
     // Public methods for external control
     public void SetDialogueData(DialogueData data) => dialogueData = data;
+    public void SetMaskDialogueSet(MaskDialogueSet dialogueSet) => maskDialogueSet = dialogueSet;
     public void AddItemDrop(ItemDropData item) => itemDrops.Add(item);
     public void ClearItemDrops() => itemDrops.Clear();
     public bool HasInteracted() => hasInteracted;
     public void ResetInteraction() => hasInteracted = false;
+    public string GetNPCID() => npcID;
+    public bool RequiresMask() => requiresMask;
 }

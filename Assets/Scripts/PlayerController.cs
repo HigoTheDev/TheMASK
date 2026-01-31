@@ -15,12 +15,30 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private MaskUIController maskUIController; // UI controller reference
     [SerializeField] private GameObject maskVisual; // Visual representation of mask on player
 
+    [Header("Health System")]
+    [Tooltip("Maximum health points")]
+    [SerializeField] private int maxHP = 100;
+    [Tooltip("Invulnerability duration after taking damage (seconds)")]
+    [SerializeField] private float invulnerabilityDuration = 0.5f;
+
     // Components
     private Rigidbody2D rb;
     private Animator animator;
 
     // Mask state
     private bool isMaskWorn = false;
+
+    // Health state
+    private int currentHP;
+    private bool isInvulnerable = false;
+    private float invulnerabilityTimer = 0f;
+
+    // Events
+    public delegate void HealthChanged(int current, int max);
+    public event HealthChanged OnHealthChanged;
+
+    public delegate void PlayerDied();
+    public event PlayerDied OnPlayerDied;
 
     // Store initial scale to preserve size when flipping
     private Vector3 initialScale;
@@ -46,6 +64,9 @@ public class PlayerController : MonoBehaviour
         {
             maskVisual.SetActive(false);
         }
+
+        // Initialize health
+        currentHP = maxHP;
     }
 
     private void Update()
@@ -54,6 +75,7 @@ public class PlayerController : MonoBehaviour
         HandleJump();
         HandleMaskToggle();
         UpdateAnimations();
+        UpdateInvulnerability();
     }
 
     private void HandleMovement()
@@ -135,4 +157,99 @@ public class PlayerController : MonoBehaviour
 
     // Public getters
     public bool IsMaskWorn() => isMaskWorn;
+
+    /// <summary>
+    /// Get current mask type based on selected mask
+    /// Returns NONE if mask not worn
+    /// </summary>
+    public MaskType GetCurrentMaskType()
+    {
+        if (!isMaskWorn)
+        {
+            return MaskType.NONE;
+        }
+
+        if (maskController == null)
+        {
+            return MaskType.NONE;
+        }
+
+        int index = maskController.GetSelectedIndex();
+        return (MaskType)index;
+    }
+
+    /// <summary>
+    /// Take damage from enemy or hazard
+    /// </summary>
+    public void TakeDamage(int damage)
+    {
+        if (isInvulnerable || currentHP <= 0)
+            return;
+
+        currentHP -= damage;
+        currentHP = Mathf.Max(0, currentHP);
+
+        // Trigger invulnerability frames
+        isInvulnerable = true;
+        invulnerabilityTimer = invulnerabilityDuration;
+
+        OnHealthChanged?.Invoke(currentHP, maxHP);
+        Debug.Log($"Player took {damage} damage. HP: {currentHP}/{maxHP}");
+
+        // Check death
+        if (currentHP <= 0)
+        {
+            Die();
+        }
+    }
+
+    /// <summary>
+    /// Heal player
+    /// </summary>
+    public void Heal(int amount)
+    {
+        if (currentHP <= 0)
+            return;
+
+        currentHP += amount;
+        currentHP = Mathf.Min(maxHP, currentHP);
+
+        OnHealthChanged?.Invoke(currentHP, maxHP);
+        Debug.Log($"Player healed {amount}. HP: {currentHP}/{maxHP}");
+    }
+
+    /// <summary>
+    /// Update invulnerability timer
+    /// </summary>
+    private void UpdateInvulnerability()
+    {
+        if (isInvulnerable)
+        {
+            invulnerabilityTimer -= Time.deltaTime;
+            if (invulnerabilityTimer <= 0f)
+            {
+                isInvulnerable = false;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Handle player death
+    /// </summary>
+    private void Die()
+    {
+        Debug.Log("Player died!");
+        OnPlayerDied?.Invoke();
+        
+        // Disable player controls
+        enabled = false;
+        
+        // TODO: Death animation, game over screen, etc.
+    }
+
+    // Health getters
+    public int GetCurrentHP() => currentHP;
+    public int GetMaxHP() => maxHP;
+    public bool IsAlive() => currentHP > 0;
+    public bool IsInvulnerable() => isInvulnerable;
 }
