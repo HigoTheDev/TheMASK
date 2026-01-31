@@ -10,9 +10,16 @@ public class PlayerController : MonoBehaviour
     [Header("Jump")]
     [SerializeField] private float jumpForce = 10f;
 
+    [Header("Mask System")]
+    [SerializeField] private MaskController maskController;
+    [SerializeField] private GameObject maskVisual; // Visual representation of mask on player
+
     // Components
     private Rigidbody2D rb;
     private Animator animator;
+
+    // Mask state
+    private bool isMaskWorn = false;
 
     // Animation parameter hashes
     private int isRunningHash;
@@ -26,12 +33,19 @@ public class PlayerController : MonoBehaviour
         // Cache parameter hashes
         isRunningHash = Animator.StringToHash("isRunning");
         isJumpingHash = Animator.StringToHash("isJumping");
+
+        // Initialize mask visual as hidden
+        if (maskVisual != null)
+        {
+            maskVisual.SetActive(false);
+        }
     }
 
     private void Update()
     {
         HandleMovement();
         HandleJump();
+        HandleMaskToggle();
         UpdateAnimations();
     }
 
@@ -64,6 +78,41 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void HandleMaskToggle()
+    {
+        // Toggle mask with E key
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            ToggleMask();
+        }
+    }
+
+    private void ToggleMask()
+    {
+        isMaskWorn = !isMaskWorn;
+
+        // Update visual
+        if (maskVisual != null)
+        {
+            maskVisual.SetActive(isMaskWorn);
+        }
+
+        // Log for debugging
+        if (maskController != null && maskController.HasMasks())
+        {
+            MaskData currentMask = maskController.GetCurrentMask();
+            string status = isMaskWorn ? "worn" : "removed";
+            Debug.Log($"Mask {status}: {currentMask.maskName}");
+        }
+        else
+        {
+            Debug.Log($"Mask {(isMaskWorn ? "worn" : "removed")} (no mask controller)");
+        }
+
+        // TODO: Trigger world state change event here
+        // This is where you'll later integrate with WorldStateManager
+    }
+
     private void UpdateAnimations()
     {
         if (animator == null) return;
@@ -76,4 +125,7 @@ public class PlayerController : MonoBehaviour
         bool isInAir = Mathf.Abs(rb.linearVelocity.y) > 1.0f;
         animator.SetBool(isJumpingHash, isInAir);
     }
+
+    // Public getters
+    public bool IsMaskWorn() => isMaskWorn;
 }
