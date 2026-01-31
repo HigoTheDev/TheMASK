@@ -1,0 +1,285 @@
+fileFormatVersion: 2
+guid: 3706521046a008149b170ebb3a90f99b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 987678502405763864
+    second: offficer_0
+  - first:
+      213: 8786504517022305910
+    second: offficer_1
+  - first:
+      213: -1108381246079447360
+    second: offficer_2
+  - first:
+      213: 94508471911434299
+    second: offficer_3
+  - first:
+      213: 4755896211944513645
+    second: offficer_4
+  - first:
+      213: 5482713519878553303
+    second: offficer_5
+  - first:
+      213: 1378220817062116368
+    second: offficer_6
+  - first:
+      213: -7117672838003092677
+    second: offficer_7
+  - first:
+      213: 3826908650706003041
+    second: offficer_8
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: offficer_0
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 34
+        width: 444
+        height: 417
+      alignment: 9
+      pivot: {x: 0.50375384, y: 0.10831338}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8137f207d50f4bd00800000000000000
+      internalID: 987678502405763864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: offficer_2
+      rect:
+        serializedVersion: 2
+        x: 635
+        y: 274
+        width: 293
+        height: 274
+      alignment: 9
+      pivot: {x: 0.5255983, y: 0.22019503}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0cecabf012d3e90f0800000000000000
+      internalID: -1108381246079447360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: offficer_5
+      rect:
+        serializedVersion: 2
+        x: 1006
+        y: 364
+        width: 85
+        height: 174
+      alignment: 9
+      pivot: {x: 0.73529553, y: 0.8879314}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7deb79dc5e2861c40800000000000000
+      internalID: 5482713519878553303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: offficer_6
+      rect:
+        serializedVersion: 2
+        x: 1206
+        y: 364
+        width: 94
+        height: 173
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01c390fe78c602310800000000000000
+      internalID: 1378220817062116368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: offficer_7
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 45
+        width: 99
+        height: 199
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b33116fc342f83d90800000000000000
+      internalID: -7117672838003092677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: offficer_8
+      rect:
+        serializedVersion: 2
+        x: 812
+        y: 45
+        width: 92
+        height: 199
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16463395429eb1530800000000000000
+      internalID: 3826908650706003041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: faefb79234775df4e94196911c546a96
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      offficer_0: 987678502405763864
+      offficer_1: 8786504517022305910
+      offficer_2: -1108381246079447360
+      offficer_3: 94508471911434299
+      offficer_4: 4755896211944513645
+      offficer_5: 5482713519878553303
+      offficer_6: 1378220817062116368
+      offficer_7: -7117672838003092677
+      offficer_8: 3826908650706003041
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
