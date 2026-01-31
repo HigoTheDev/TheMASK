@@ -15,6 +15,16 @@ public class CameraFollow : MonoBehaviour
     
     [Tooltip("Enable smooth following or snap instantly to target")]
     [SerializeField] private bool useSmoothing = true;
+    
+    [Header("Position Limits")]
+    [Tooltip("Enable position limits to restrict camera movement")]
+    [SerializeField] private bool useLimits = false;
+    
+    [Tooltip("Minimum position bounds (X, Y, Z)")]
+    [SerializeField] private Vector3 minPosition = new Vector3(-10, 0, -10);
+    
+    [Tooltip("Maximum position bounds (X, Y, Z)")]
+    [SerializeField] private Vector3 maxPosition = new Vector3(10, 10, 10);
 
     void LateUpdate()
     {
@@ -26,6 +36,14 @@ public class CameraFollow : MonoBehaviour
 
         // Calculate the desired position based on target and offset
         Vector3 desiredPosition = target.position + offset;
+        
+        // Apply limits if enabled
+        if (useLimits)
+        {
+            desiredPosition.x = Mathf.Clamp(desiredPosition.x, minPosition.x, maxPosition.x);
+            desiredPosition.y = Mathf.Clamp(desiredPosition.y, minPosition.y, maxPosition.y);
+            desiredPosition.z = Mathf.Clamp(desiredPosition.z, minPosition.z, maxPosition.z);
+        }
         
         if (useSmoothing)
         {
@@ -40,7 +58,7 @@ public class CameraFollow : MonoBehaviour
         }
     }
 
-    // Optional: Draw gizmos in the Scene view to visualize the offset
+    // Optional: Draw gizmos in the Scene view to visualize the offset and limits
     private void OnDrawGizmosSelected()
     {
         if (target != null)
@@ -48,6 +66,15 @@ public class CameraFollow : MonoBehaviour
             Gizmos.color = Color.yellow;
             Gizmos.DrawLine(target.position, target.position + offset);
             Gizmos.DrawWireSphere(target.position + offset, 0.5f);
+        }
+        
+        // Draw the limit bounds
+        if (useLimits)
+        {
+            Gizmos.color = Color.red;
+            Vector3 center = (minPosition + maxPosition) / 2;
+            Vector3 size = maxPosition - minPosition;
+            Gizmos.DrawWireCube(center, size);
         }
     }
 }
