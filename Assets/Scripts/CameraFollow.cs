@@ -6,6 +6,9 @@ public class CameraFollow : MonoBehaviour
     [Tooltip("The player character to follow")]
     [SerializeField] private Transform target;
     
+    [Tooltip("Background transform to move along with camera (optional)")]
+    [SerializeField] private Transform background;
+    
     [Header("Follow Settings")]
     [Tooltip("Offset from the target position")]
     [SerializeField] private Vector3 offset = new Vector3(0, 2, -10);
@@ -25,7 +28,30 @@ public class CameraFollow : MonoBehaviour
     
     [Tooltip("Maximum position bounds (X, Y, Z)")]
     [SerializeField] private Vector3 maxPosition = new Vector3(10, 10, 10);
+    
+    [Header("Background Settings")]
+    [Tooltip("Parallax speed for background (0 = no movement, 1 = same as camera, 0.5 = half speed)")]
+    [SerializeField] private float backgroundParallaxSpeed = 1.0f;
+    
+    [Tooltip("Move background on X axis")]
+    [SerializeField] private bool backgroundFollowX = true;
+    
+    [Tooltip("Move background on Y axis")]
+    [SerializeField] private bool backgroundFollowY = false;
+    
+    private Vector3 _backgroundStartPosition;
+    private Vector3 _cameraStartPosition;
 
+    void Start()
+    {
+        // Store starting positions
+        _cameraStartPosition = transform.position;
+        if (background != null)
+        {
+            _backgroundStartPosition = background.position;
+        }
+    }
+    
     void LateUpdate()
     {
         if (target == null)
@@ -56,6 +82,29 @@ public class CameraFollow : MonoBehaviour
             // Instantly move to desired position
             transform.position = desiredPosition;
         }
+        
+        // Move background if assigned
+        if (background != null)
+        {
+            UpdateBackgroundPosition();
+        }
+    }
+    
+    private void UpdateBackgroundPosition()
+    {
+        // Calculate how much the camera has moved from start
+        Vector3 cameraMovement = transform.position - _cameraStartPosition;
+        
+        // Apply parallax effect
+        Vector3 parallaxMovement = cameraMovement * backgroundParallaxSpeed;
+        
+        // Apply axis locks
+        if (!backgroundFollowX) parallaxMovement.x = 0;
+        if (!backgroundFollowY) parallaxMovement.y = 0;
+        parallaxMovement.z = 0; // Always lock Z for 2D backgrounds
+        
+        // Set background position
+        background.position = _backgroundStartPosition + parallaxMovement;
     }
 
     // Optional: Draw gizmos in the Scene view to visualize the offset and limits
