@@ -28,6 +28,9 @@ public class MaskUIController : MonoBehaviour
     // Target colors for smooth animation
     private Color[] targetColors = new Color[3];
     
+    // Track whether player is wearing a mask
+    private bool isMaskWorn = false;
+    
     private void Awake()
     {
         // Find MaskController
@@ -107,8 +110,8 @@ public class MaskUIController : MonoBehaviour
                 {
                     originalMaskColors[i] = maskData.maskColor;
                     
-                    // Set initial color (dim if it's the active mask)
-                    if (i == currentActiveMaskIndex)
+                    // Set initial color (only dim if mask is worn and it's the active mask)
+                    if (isMaskWorn && i == currentActiveMaskIndex)
                     {
                         targetColors[i] = GetDimmedColor(originalMaskColors[i]);
                     }
@@ -145,6 +148,14 @@ public class MaskUIController : MonoBehaviour
     
     private void UpdateMaskUI(int previousIndex, int newIndex)
     {
+        // Only apply dimming if mask is being worn
+        if (!isMaskWorn)
+        {
+            // All masks should be bright when not wearing
+            SetAllMasksBright();
+            return;
+        }
+        
         // Brighten the previous mask
         if (previousIndex >= 0 && previousIndex < maskUISlots.Length && maskUISlots[previousIndex] != null)
         {
@@ -156,7 +167,7 @@ public class MaskUIController : MonoBehaviour
             }
         }
         
-        // Dim the new active mask
+        // Dim the new active mask (only if wearing mask)
         if (newIndex >= 0 && newIndex < maskUISlots.Length && maskUISlots[newIndex] != null)
         {
             targetColors[newIndex] = GetDimmedColor(originalMaskColors[newIndex]);
@@ -231,6 +242,44 @@ public class MaskUIController : MonoBehaviour
         {
             UpdateMaskUI(currentActiveMaskIndex, index);
             currentActiveMaskIndex = index;
+        }
+    }
+    
+    /// <summary>
+    /// Call this when player puts on/wears the mask
+    /// </summary>
+    public void SetMaskWorn(bool worn)
+    {
+        isMaskWorn = worn;
+        
+        if (worn)
+        {
+            // When wearing mask, dim the active one
+            UpdateMaskUI(-1, currentActiveMaskIndex);
+        }
+        else
+        {
+            // When not wearing mask, all should be bright
+            SetAllMasksBright();
+        }
+    }
+    
+    /// <summary>
+    /// Set all mask UI icons to full brightness
+    /// </summary>
+    private void SetAllMasksBright()
+    {
+        for (int i = 0; i < maskUISlots.Length; i++)
+        {
+            if (maskUISlots[i] != null && maskUISlots[i].gameObject.activeSelf)
+            {
+                targetColors[i] = GetBrightColor(originalMaskColors[i]);
+                
+                if (!enableSwitchAnimation)
+                {
+                    maskUISlots[i].color = targetColors[i];
+                }
+            }
         }
     }
 }

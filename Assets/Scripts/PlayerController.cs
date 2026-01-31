@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Mask System")]
     [SerializeField] private MaskController maskController;
+    [SerializeField] private MaskUIController maskUIController; // UI controller reference
     [SerializeField] private GameObject maskVisual; // Visual representation of mask on player
 
     // Components
@@ -101,6 +102,12 @@ public class PlayerController : MonoBehaviour
         if (maskVisual != null)
         {
             maskVisual.SetActive(isMaskWorn);
+        }
+        
+        // Notify UI Controller
+        if (maskUIController != null)
+        {
+            maskUIController.SetMaskWorn(isMaskWorn);
         }
 
         // Log for debugging
