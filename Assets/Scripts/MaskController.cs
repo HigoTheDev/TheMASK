@@ -91,6 +91,16 @@ public class MaskController : MonoBehaviour
     public int GetMaskCount() => masks.Count;
     public bool HasMasks() => masks.Count > 0;
     
+    // Get mask data by index (useful for UI)
+    public MaskData GetMaskByIndex(int index)
+    {
+        if (index >= 0 && index < masks.Count)
+        {
+            return masks[index];
+        }
+        return null;
+    }
+    
     // For future: Get mask-specific properties
     public T GetMaskProperty<T>(string propertyName) where T : class
     {
