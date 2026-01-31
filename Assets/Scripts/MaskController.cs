@@ -2,28 +2,37 @@ using UnityEngine;
 using System.Collections.Generic;
 
 /// <summary>
-/// Manages mask inventory, selection, and switching
-/// Press 1/2/3 to select different masks
+/// Manages mask selection and properties
+/// Press 1/2/3 to switch between different colored masks
+/// Each mask color can have unique world-altering properties
 /// </summary>
 public class MaskController : MonoBehaviour
 {
-    [Header("Mask Inventory")]
-    [SerializeField] private List<MaskData> availableMasks = new List<MaskData>();
+    [Header("Mask Colors")]
+    [SerializeField] private List<MaskData> masks = new List<MaskData>();
+
+    [Header("Visual Reference")]
+    [SerializeField] private SpriteRenderer maskVisualRenderer;
 
     // Current state
     private int selectedMaskIndex = 0;
     private MaskData currentMask;
 
-    // Events
-    public delegate void MaskSelectionChanged(MaskData newMask, int index);
-    public event MaskSelectionChanged OnMaskSelectionChanged;
+    // Events for other systems to react to mask changes
+    public delegate void MaskChanged(MaskData newMask, int index);
+    public event MaskChanged OnMaskChanged;
 
     private void Awake()
     {
         // Initialize with first mask if available
-        if (availableMasks.Count > 0)
+        if (masks.Count > 0)
         {
-            currentMask = availableMasks[0];
+            currentMask = masks[0];
+            ApplyMaskVisual();
+        }
+        else
+        {
+            Debug.LogWarning("MaskController: No masks configured!");
         }
     }
 
@@ -34,77 +43,84 @@ public class MaskController : MonoBehaviour
 
     private void HandleMaskSelection()
     {
-        // Check for number key inputs (1, 2, 3, etc.)
-        for (int i = 0; i < availableMasks.Count && i < 9; i++)
+        // Listen for 1, 2, 3 keys to switch masks
+        if (Input.GetKeyDown(KeyCode.Alpha1) && masks.Count > 0)
         {
-            // KeyCode.Alpha1 = 49, Alpha2 = 50, etc.
-            KeyCode key = KeyCode.Alpha1 + i;
-            
-            if (Input.GetKeyDown(key))
-            {
-                SelectMask(i);
-            }
+            SelectMask(0);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2) && masks.Count > 1)
+        {
+            SelectMask(1);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3) && masks.Count > 2)
+        {
+            SelectMask(2);
         }
     }
 
     public void SelectMask(int index)
     {
-        if (index < 0 || index >= availableMasks.Count)
+        if (index < 0 || index >= masks.Count)
         {
             Debug.LogWarning($"Invalid mask index: {index}");
             return;
         }
 
         selectedMaskIndex = index;
-        currentMask = availableMasks[index];
+        currentMask = masks[index];
 
-        // Notify listeners
-        OnMaskSelectionChanged?.Invoke(currentMask, selectedMaskIndex);
+        ApplyMaskVisual();
 
-        Debug.Log($"Mask selected: {currentMask.maskName} (Index: {selectedMaskIndex})");
+        // Notify other systems
+        OnMaskChanged?.Invoke(currentMask, selectedMaskIndex);
+
+        Debug.Log($"Selected: {currentMask.maskName} (Color: {currentMask.maskColor})");
     }
 
-    public void AddMask(MaskData newMask)
+    private void ApplyMaskVisual()
     {
-        if (!availableMasks.Contains(newMask))
+        if (maskVisualRenderer != null && currentMask != null)
         {
-            availableMasks.Add(newMask);
-            Debug.Log($"Mask added: {newMask.maskName}");
+            maskVisualRenderer.color = currentMask.maskColor;
         }
     }
 
-    public void RemoveMask(MaskData mask)
-    {
-        availableMasks.Remove(mask);
-        
-        // If current mask was removed, select first available
-        if (currentMask == mask && availableMasks.Count > 0)
-        {
-            SelectMask(0);
-        }
-    }
-
-    // Getters
+    // Public methods
     public MaskData GetCurrentMask() => currentMask;
     public int GetSelectedIndex() => selectedMaskIndex;
-    public int GetMaskCount() => availableMasks.Count;
-    public bool HasMasks() => availableMasks.Count > 0;
+    public int GetMaskCount() => masks.Count;
+    public bool HasMasks() => masks.Count > 0;
+    
+    // For future: Get mask-specific properties
+    public T GetMaskProperty<T>(string propertyName) where T : class
+    {
+        // Extensible for future custom properties per mask
+        return null;
+    }
 }
 
 /// <summary>
-/// Data container for mask properties
+/// Data container for each mask type
+/// Each mask is represented by a color and can have unique properties
 /// </summary>
 [System.Serializable]
 public class MaskData
 {
+    [Header("Basic Info")]
     public string maskName = "Mask 1";
-    public Sprite maskSprite;
     public Color maskColor = Color.white;
-    
-    [Header("World Effects")]
-    [Tooltip("What changes when this mask is worn")]
-    public string worldEffect = "Changes platforms visibility";
-    
-    // Add more properties as needed for different masks
     public int maskID = 0;
+
+    [Header("Future Properties")]
+    [Tooltip("Description of what this mask does")]
+    public string maskDescription = "Default mask";
+    
+    // Extensible properties for future features
+    // Example: Different platform visibility rules, special abilities, etc.
+    
+    // Uncomment and expand as needed:
+    // public bool affectsPlatforms = true;
+    // public bool affectsEnemies = false;
+    // public float speedModifier = 1.0f;
+    // public GameObject particleEffect;
 }
