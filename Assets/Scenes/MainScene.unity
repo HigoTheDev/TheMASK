@@ -2881,6 +2881,9 @@ MonoBehaviour:
   offset: {x: 0, y: 4, z: -10}
   smoothSpeed: 0.125
   useSmoothing: 0
+  followX: 1
+  followY: 0
+  followZ: 0
   useLimits: 1
   minPosition: {x: 0, y: 0, z: -10}
   maxPosition: {x: 52, y: 10, z: 10}
@@ -9452,7 +9455,7 @@ Transform:
   m_GameObject: {fileID: 1529269359}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.0608, y: 2.5894, z: 0}
+  m_LocalPosition: {x: -2.0608, y: -0.09, z: 0}
   m_LocalScale: {x: 0.6915792, y: 0.66848373, z: 0.6102173}
   m_ConstrainProportionsScale: 0
   m_Children: []

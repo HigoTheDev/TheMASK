@@ -19,6 +19,15 @@ public class CameraFollow : MonoBehaviour
     [Tooltip("Enable smooth following or snap instantly to target")]
     [SerializeField] private bool useSmoothing = true;
     
+    [Tooltip("Follow target on X axis")]
+    [SerializeField] private bool followX = true;
+    
+    [Tooltip("Follow target on Y axis")]
+    [SerializeField] private bool followY = true;
+    
+    [Tooltip("Follow target on Z axis")]
+    [SerializeField] private bool followZ = true;
+    
     [Header("Position Limits")]
     [Tooltip("Enable position limits to restrict camera movement")]
     [SerializeField] private bool useLimits = false;
@@ -62,6 +71,11 @@ public class CameraFollow : MonoBehaviour
 
         // Calculate the desired position based on target and offset
         Vector3 desiredPosition = target.position + offset;
+        
+        // Apply axis locks (keep current position for locked axes)
+        if (!followX) desiredPosition.x = transform.position.x;
+        if (!followY) desiredPosition.y = transform.position.y;
+        if (!followZ) desiredPosition.z = transform.position.z;
         
         // Apply limits if enabled
         if (useLimits)
