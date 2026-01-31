@@ -894,11 +894,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!212 &568702056 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 6569909132041246738, guid: 36edcaf90d57efa488adbe90e7f30826, type: 3}
-  m_PrefabInstance: {fileID: 3343193934084435264}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &856086159
 GameObject:
   m_ObjectHideFlags: 0
@@ -1734,6 +1729,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3699127749683222596, guid: 36edcaf90d57efa488adbe90e7f30826, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5404795266346540751, guid: 36edcaf90d57efa488adbe90e7f30826, type: 3}
       propertyPath: m_Name
       value: character R
@@ -1766,7 +1765,7 @@ PrefabInstance:
     - target: {fileID: 2438157463137378798, guid: 9e3ace8640126494f87506fbd9c66da1, type: 3}
       propertyPath: maskVisualRenderer
       value: 
-      objectReference: {fileID: 568702056}
+      objectReference: {fileID: 0}
     - target: {fileID: 2438157463137378798, guid: 9e3ace8640126494f87506fbd9c66da1, type: 3}
       propertyPath: masks.Array.data[0].maskColor.a
       value: 1
